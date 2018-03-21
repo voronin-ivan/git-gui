@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
+const port = process.env.NODE_PORT;
 
 app.get('/', (request, response) => {
     fs.readFile('src/index.html', (error, data) => {
@@ -16,4 +17,4 @@ app.get('/', (request, response) => {
 });
 app.use(express.static(path.join(__dirname, 'dist')));
 
-app.listen(3000, () => console.log('Express app listening on localhost:3000'));
+app.listen(port, () => console.log(`Express app listening on localhost:${port}`));
