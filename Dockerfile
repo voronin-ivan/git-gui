@@ -7,4 +7,4 @@ COPY . .
 RUN npm install --quiet
 RUN npm run build
 
-CMD npm start
+CMD npm start -- --port $PORT
