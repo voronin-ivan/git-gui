@@ -1,11 +1,16 @@
 sudo: false
 language: node_js
-
 node_js:
-  - 'node'
-  - 9
-
+- node
+- 8
 script:
-  - npm run lint
-  - npm run test
-  - npm run build
+- npm run lint
+- npm run test
+- npm run build
+deploy:
+  provider: heroku
+  api_key:
+    secure: N/K7jGVS458zKXQ+OWG8ORbN4NJLM5n8Qefos1uDdSFHDFvK8uzdiWuW9Eg49l5StqrTj1JBX+hJibQph/ieiWxL4zGniRkpy3iHzXp5XPQov0/PanqnM450mdIpnkfYG19F1V6DpfMmywzjGls57bFoUb48ta2bOCPcSTJ7c5tGLTHv6PSYmNTJ6qJF4UvAJDRXj7cW6mI3uITXqRGjnhHHOkPiy3lRXvWORXTUFvwkq6Y+5bOZh/xGdBKpbyMCfgU+tXjAQsZIlifWCr89mKyWLxp8+ESSv6qfCY1H02jwe7/uPubplv0s32b4FiVZQzi2yFjT+j0vAsxrQLJbVzbKztU+t+pcbbCmZSBe+0vTBuUnryEG97Bc55Pho+6gt1k3wqFqZk0QzLEoJU1ilvLfngnHOlfnHxZaUpFQtWeQ2b1jYh1h7SjJYf6g9hwZzzHuxxEoolCDN9AEGDLfCm3q/wEeRKu3EKNKwzSwSM5ZB5NmkiEV8QCd3WoCUWj+rfIbt9EzU/GLff1WpKVNDR8Q+FT94NjX17+oQ0qTmpDZickQLpgk5cphW007xBhgO6GEjqvRKJoMbTHxscrHP9cxNGt5uLxWY45UlflHNl/Fv1qHbFkXOfV5JYBmz2lyj/ihVzH3/LXQjyuzUNq+s9Pv3w8XWFsO5tIdrEXtUZc=
+  app: shri-4-nodejs
+  on:
+    repo: voronin-ivan/shri-4-nodejs
