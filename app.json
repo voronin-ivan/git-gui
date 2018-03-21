@@ -8,9 +8,5 @@
     }
   },
   "addons": [],
-  "buildpacks": [
-    {
-      "url": "heroku/nodejs"
-    }
-  ]
+  "buildpacks": []
 }

@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const port = process.env.NODE_PORT;
+const port = process.env.PORT || 3000;
 
 app.get('/', (request, response) => {
     fs.readFile('src/index.html', (error, data) => {
