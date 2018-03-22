@@ -25,7 +25,7 @@ jobs:
     - stage: Deploy (development)
       if: tag IS blank
       script:
-        - npm run start
+        - npm run build
       deploy:
         <<: *deploy
         app: shri-4-nodejs-stage
@@ -33,7 +33,7 @@ jobs:
     - stage: Deploy (production)
       if: tag IS present
       script:
-        - npm run start
+        - npm run build
       deploy:
         <<: *deploy
         app: shri-4-nodejs
