@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "lint": "eslint \"**/*.js\"",
+    "build": "webpack",
     "dev": "webpack --watch | nodemon index.js",
-    "start": "webpack | node index.js"
+    "start": "npm run build | node index.js"
   },
   "repository": {
     "type": "git",
