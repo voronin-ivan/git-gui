@@ -1,0 +1,9 @@
+extends layout
+block content
+    header
+        h1 Branches
+    main
+        ul
+            for branch in branches
+                li
+                    a(href=`/${branch}`) #{branch}
