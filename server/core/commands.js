@@ -1,0 +1,84 @@
+const { runExec, inlineString, getHash } = require('./utils');
+
+const getBranches = async () => {
+    const data = await runExec('git branch');
+    const branches = inlineString(data);
+
+    return branches.map(branch => branch.replace('* ', '').trim());
+};
+
+const getCommits = async (branch) => {
+    const data = await runExec(`git log --pretty=format:"%h|%ad|%an|%s" --date=short ${branch}`);
+    const commits = inlineString(data);
+
+    return commits.map((commit) => {
+        const commitArr = commit.split('|');
+
+        return {
+            hash: commitArr[0],
+            date: commitArr[1],
+            autor: commitArr[2],
+            message: commitArr[3],
+        };
+    });
+};
+
+const getFiles = async (param) => {
+    const data = await runExec(`git ls-tree ${param}`);
+    const files = inlineString(data);
+
+    return files.map((file) => {
+        const arr = file.split(' ');
+
+        return {
+            type: arr[1],
+            hash: getHash(arr[2]),
+            name: arr[2].split('\t')[1],
+        };
+    });
+};
+
+const getFileContent = async hash => await runExec(`git show ${hash}`);
+const getCommitName = async hash => await runExec(`git log -1 --pretty=format:%s ${hash}`);
+
+const getBreadCrumbs = async (param, hash) => {
+    const data = await runExec(`git ls-tree -t -r ${param}`);
+    const files = inlineString(data);
+    const breadCrubms = [];
+
+    let fileName = null;
+
+    files.forEach((file) => {
+        const fileArr = file.split(' ');
+        const fileHash = getHash(fileArr[2]);
+
+        if (fileHash === hash) {
+            fileName = fileArr[2].split(' ')[0].split('\t')[1];
+        }
+    });
+
+    fileName.split('/').forEach((filePath) => {
+        files.forEach((file) => {
+            const fileArr = file.split(' ');
+            const fullPath = fileArr[2].split('\t')[1].split('/');
+
+            if (filePath === fullPath[fullPath.length - 1]) {
+                breadCrubms.push({
+                    name: filePath,
+                    hash: getHash(fileArr[2]),
+                });
+            }
+        });
+    });
+
+    return breadCrubms;
+};
+
+module.exports = {
+    getBranches,
+    getCommits,
+    getFiles,
+    getFileContent,
+    getCommitName,
+    getBreadCrumbs,
+};
