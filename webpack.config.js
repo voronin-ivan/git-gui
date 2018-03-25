@@ -1,6 +1,24 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+const isProduction = process.env.NODE_ENV === 'production';
+const plugins = [
+    new ExtractTextPlugin({
+        filename: 'css/style.css',
+    }),
+];
+const postCssPlugins = isProduction ?
+    [autoprefixer('last 2 versions'), cssnano] :
+    [autoprefixer('last 2 versions')];
+
+if (isProduction) {
+    plugins.push(new UglifyJsPlugin({
+        include: /\.js$/,
+    }));
+}
 
 module.exports = {
     entry: './src/js/main.js',
@@ -34,7 +52,7 @@ module.exports = {
                         {
                             loader: 'postcss-loader',
                             options: {
-                                plugins: () => [autoprefixer('last 2 versions')],
+                                plugins: () => postCssPlugins,
                             },
                         },
                         { loader: 'sass-loader' },
@@ -43,9 +61,5 @@ module.exports = {
             },
         ],
     },
-    plugins: [
-        new ExtractTextPlugin({
-            filename: 'css/style.css',
-        }),
-    ],
+    plugins,
 };

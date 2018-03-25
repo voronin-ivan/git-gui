@@ -27,18 +27,15 @@ jobs:
   include:
     - stage: Deploy (development)
       if: tag IS blank
-      script:
-        - npm run build
       deploy:
         <<: *deploy
         app: shri-4-nodejs-stage
 
     - stage: Deploy (production)
       if: tag IS present
-      script:
-        - npm run build
       deploy:
         <<: *deploy
         app: shri-4-nodejs
         on:
           tags: true
+          all_branches: true
