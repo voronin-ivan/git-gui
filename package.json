@@ -2,7 +2,6 @@
   "name": "shri-4-nodejs",
   "version": "1.0.0",
   "scripts": {
-    "clone": "git clone --mirror git@github.com:voronin-ivan/test.git repo",
     "lint": "eslint \"**/*.js\"",
     "clone": "git clone --mirror https://github.com/voronin-ivan/test.git repo",
     "build": "webpack",

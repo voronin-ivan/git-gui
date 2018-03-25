@@ -1,9 +1,10 @@
 extends layout
 block content
     header
-        h1 Branches
+        h1.title Branches
     main
-        ul
+        ul.list
             for branch in branches
-                li
+                li.list__item
                     a(href=`/${branch}`) #{branch}
+                    #{`${branch}-files`}

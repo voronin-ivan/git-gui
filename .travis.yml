@@ -11,6 +11,9 @@ script:
 - npm run test
 - npm run build
 
+notifications:
+  email: false
+
 aliases:
   deploy: &deploy
     provider: heroku

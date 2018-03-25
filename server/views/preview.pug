@@ -1,0 +1,17 @@
+extends layout
+block content
+    header
+        h1 Preview
+    main 
+        //- div
+        //-     a(href='/') branches
+        //-     span →
+        //-     a(href=`/${branch}`) branch "#{branch}"
+        //-     if commit
+        //-         span →
+        //-         a(href=`/${branch}/${commit.hash}`) commit "#{commit.hash}"
+        //-     if breadCrumbs
+        //-         for breadCrumb in breadCrumbs
+        //-             span →
+        //-             a(href=`/${branch}/${commit ? commit.hash + '/' : ''}?path=${breadCrumb.hash}`) 
+        div #{fileContent}

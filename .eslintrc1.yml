@@ -8,4 +8,5 @@ extends:
 
 rules:
     indent: [error, 4, {SwitchCase: 1}]
+    prefer-destructuring: [error, {object: false}]
     no-console: 0

@@ -1,3 +1,58 @@
-h1 {
-    text-align: center;
+body {
+    padding: 10px 15px;
+    font: 16px Helvetica, Arial, sans-serif;
+}
+
+.title {
+    margin: 0 0 20px;
+    font-size: 40px;
+}
+
+.subtitle {
+    margin-bottom: 10px;
+}
+
+.list {
+    margin-top: 0;
+    margin-left: 20px;
+    padding: 0;
+
+    &__item {
+        margin-bottom: 5px;
+    }
+
+    &__item a {
+        font-size: 20px;
+        color: #3285e0;
+        text-decoration: none;
+
+        &:hover,
+        &:focus,
+        &:active {
+            text-decoration: underline;
+        }
+    }
+}
+
+.breadcrumbs {
+    margin-bottom: 20px;
+
+    &__link {
+        color: #3235e0;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &:last-of-type {
+            color: #bcbdd8;
+            cursor: default;
+            pointer-events: none;
+        }
+    }
+
+    &__arrow {
+        margin: 0 7px;
+    }
 }

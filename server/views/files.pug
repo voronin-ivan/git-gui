@@ -1,0 +1,23 @@
+extends layout
+block content
+    header
+        h1.title #{(commit) ? commit.name : branch}
+    main
+        div.breadcrumbs
+            a.breadcrumbs__link(href='/') branches
+            span.breadcrumbs__arrow →
+            a.breadcrumbs__link(href=`/${branch}`) branch "#{branch}"
+            if commit
+                span.breadcrumbs__arrow →
+                a.breadcrumbs__link(href=`/${branch}/${commit.hash}`) commit "#{commit.hash}"
+            if breadCrumbs
+                for breadCrumb in breadCrumbs
+                    span.breadcrumbs__arrow →
+                    a.breadcrumbs__link(href=`/${branch}/${commit ? commit.hash + '/' : ''}?path=${breadCrumb.hash}`) #{breadCrumb.name}
+        ul.list
+            for file in files
+                li.list__item
+                    if file.type === 'blob'
+                        a(href=`/${branch}/${commit ? commit.hash + '/' : ''}?file=${file.hash}`) #{file.name}
+                    else
+                        a(href=`/${branch}/${commit ? commit.hash + '/' : ''}?path=${file.hash}`) #{file.name}/
