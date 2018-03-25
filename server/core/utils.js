@@ -1,8 +1,8 @@
 const util = require('util');
 const child_process = require('child_process');
-const exec = util.promisify(child_process.exec);
 const path = require('path');
 
+const exec = util.promisify(child_process.exec);
 const repoPath = path.join(__dirname, '../../repo');
 const options = { cwd: repoPath };
 
