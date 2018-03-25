@@ -1,17 +1,16 @@
 extends layout
 block content
     header
-        h1 Preview
+        h1.title #{breadCrumbs[breadCrumbs.length - 1].name}
     main 
-        //- div
-        //-     a(href='/') branches
-        //-     span →
-        //-     a(href=`/${branch}`) branch "#{branch}"
-        //-     if commit
-        //-         span →
-        //-         a(href=`/${branch}/${commit.hash}`) commit "#{commit.hash}"
-        //-     if breadCrumbs
-        //-         for breadCrumb in breadCrumbs
-        //-             span →
-        //-             a(href=`/${branch}/${commit ? commit.hash + '/' : ''}?path=${breadCrumb.hash}`) 
+        div.breadcrumbs
+            a.breadcrumbs__link(href='/') branches
+            span.breadcrumbs__arrow →
+            a.breadcrumbs__link(href=`/${branch}`) branch "#{branch}"
+            if commit
+                span.breadcrumbs__arrow →
+                a.breadcrumbs__link(href=`/${branch}/${commit.hash}`) commit "#{commit.hash}"
+            for breadCrumb in breadCrumbs
+                span.breadcrumbs__arrow →
+                a.breadcrumbs__link(href=`/${branch}/${commit ? commit.hash + '/' : ''}?path=${breadCrumb.hash}`) #{breadCrumb.name}
         div #{fileContent}

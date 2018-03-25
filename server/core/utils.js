@@ -1,31 +1,33 @@
 const util = require('util');
-const child_process = require('child_process');
+const childProcess = require('child_process');
 const path = require('path');
 
-const exec = util.promisify(child_process.exec);
+const exec = util.promisify(childProcess.exec);
 const repoPath = path.join(__dirname, '../../repo');
 const options = { cwd: repoPath };
 
-const execCommand = async (command) => {
+const _runExec = async (command) => {
     const { stdout, stderr } = await exec(command, options);
 
     if (stderr) {
-        console.log(stderr);
+        console.error(stderr);
     }
 
     return stdout;
 };
 
+const _inlineString = string => string.toString().trim().split('\n');
+
 const getBranches = async () => {
-    const data = await execCommand('git branch');
-    const branches = data.toString().trim().split('\n');
+    const data = await _runExec('git branch');
+    const branches = _inlineString(data);
 
     return branches.map(branch => branch.replace('* ', '').trim());
 };
 
 const getCommits = async (branch) => {
-    const data = await execCommand(`git log --pretty=format:"%h|%ad|%an|%s" --date=short ${branch}`);
-    const commits = data.toString().trim().split('\n');
+    const data = await _runExec(`git log --pretty=format:"%h|%ad|%an|%s" --date=short ${branch}`);
+    const commits = _inlineString(data);
 
     return commits.map((commit) => {
         const commitArr = commit.split('|');
@@ -40,25 +42,26 @@ const getCommits = async (branch) => {
 };
 
 const getFiles = async (param) => {
-    const data = await execCommand(`git ls-tree ${param}`);
-    const files = data.toString().trim().split('\n');
+    const data = await _runExec(`git ls-tree ${param}`);
+    const files = _inlineString(data);
 
-    return files.map(data => {
-        const arr = data.split(' ');
+    return files.map((file) => {
+        const arr = file.split(' ');
+
         return {
             type: arr[1],
             hash: arr[2].split('\t')[0].slice(0, 6),
-            name: arr[2].split('\t')[1]
+            name: arr[2].split('\t')[1],
         };
     });
 };
 
-const getFileContent = async (hash) => await execCommand(`git show ${hash}`);
-const getFileName = async (hash) => await execCommand(`git show ${hash}`);
-const getCommitName = async (hash) => await execCommand(`git log -1 --pretty=format:%s ${hash}`);
-const getBreadCrumbs = async (hash, branch) => {
-    const data = await execCommand(`git ls-tree -t -r ${branch}`);
-    const files = data.toString().trim().split('\n');
+const getFileContent = async hash => await _runExec(`git show ${hash}`);
+const getCommitName = async hash => await _runExec(`git log -1 --pretty=format:%s ${hash}`);
+
+const getBreadCrumbs = async (param, hash) => {
+    const data = await _runExec(`git ls-tree -t -r ${param}`);
+    const files = _inlineString(data);
     const breadCrubms = [];
 
     let fileName = null;
@@ -72,16 +75,14 @@ const getBreadCrumbs = async (hash, branch) => {
         }
     });
 
-    const fileNameArr = fileName.split('/');
-
-    fileNameArr.forEach(path => {
+    fileName.split('/').forEach((filePath) => {
         files.forEach((file) => {
             const fileArr = file.split(' ');
             const fullPath = fileArr[2].split('\t')[1].split('/');
 
-            if (path === fullPath[fullPath.length - 1]) {
+            if (filePath === fullPath[fullPath.length - 1]) {
                 breadCrubms.push({
-                    name: path,
+                    name: filePath,
                     hash: fileArr[2].split('\t')[0].slice(0, 6),
                 });
             }
@@ -89,7 +90,7 @@ const getBreadCrumbs = async (hash, branch) => {
     });
 
     return breadCrubms;
-}
+};
 
 module.exports = {
     getBranches,
@@ -97,5 +98,5 @@ module.exports = {
     getFiles,
     getFileContent,
     getCommitName,
-    getBreadCrumbs
+    getBreadCrumbs,
 };
