@@ -8,7 +8,7 @@ node_js:
 
 script:
 - npm run lint
-- npm run test
+- npm run test:mocha
 - npm run build
 
 notifications:
@@ -25,7 +25,6 @@ jobs:
     - stage: Deploy (development)
       if: tag IS blank
       deploy:
-        <<: *deploy
         app: shri-4-nodejs-stage
         on:
           all_branches: true
@@ -33,7 +32,6 @@ jobs:
     - stage: Deploy (production)
       if: tag IS present
       deploy:
-        <<: *deploy
         app: shri-4-nodejs
         on:
           tags: true

@@ -2,3 +2,5 @@ node_modules
 dist
 repo
 npm-debug.log
+hermione-html-report
+.nyc_output

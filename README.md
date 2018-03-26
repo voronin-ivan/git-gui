@@ -16,6 +16,12 @@ npm run clone
 ```sh
 npm run dev
 ```
+
+### Тестирование
+```sh
+npm run test
+```
+
 ### [Demo](https://shri-4-nodejs.herokuapp.com/)
 ## Инфраструктура
 Для сборки клиентской части используется webpack, при сборке production-кода весь код минифицируется.

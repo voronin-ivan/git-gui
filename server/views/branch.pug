@@ -7,13 +7,13 @@ block content
             a.breadcrumbs__link(href='/') branches
             span.breadcrumbs__arrow →
             a.breadcrumbs__link(href=`/${branch}`) branch "#{branch}"
-        div
+        div.commits
             h2.subtitle commits
             ul.list
                 for commit in commits
                     li.list__item
                         a(href=`/${branch}/${commit.hash}`) #{commit.message} by #{commit.autor} (#{commit.date})
-        div
+        div.files
             h2.subtitle files
             ul.list
                 for file in files
