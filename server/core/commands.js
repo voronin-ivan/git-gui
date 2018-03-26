@@ -1,15 +1,17 @@
-const { runExec, inlineString, getHash } = require('./utils');
+const { runExec, stringToArr, getHash } = require('./utils');
 
 const getBranches = async () => {
     const data = await runExec('git branch');
-    const branches = inlineString(data);
+    console.log(data);
+    const branches = stringToArr(data);
+    console.log(branches);
 
     return branches.map(branch => branch.replace('* ', '').trim());
 };
 
 const getCommits = async (branch) => {
     const data = await runExec(`git log --pretty=format:"%h|%ad|%an|%s" --date=short ${branch}`);
-    const commits = inlineString(data);
+    const commits = stringToArr(data);
 
     return commits.map((commit) => {
         const commitArr = commit.split('|');
@@ -25,7 +27,7 @@ const getCommits = async (branch) => {
 
 const getFiles = async (param) => {
     const data = await runExec(`git ls-tree ${param}`);
-    const files = inlineString(data);
+    const files = stringToArr(data);
 
     return files.map((file) => {
         const arr = file.split(' ');
@@ -43,7 +45,7 @@ const getCommitName = async hash => await runExec(`git log -1 --pretty=format:%s
 
 const getBreadCrumbs = async (param, hash) => {
     const data = await runExec(`git ls-tree -t -r ${param}`);
-    const files = inlineString(data);
+    const files = stringToArr(data);
     const breadCrubms = [];
 
     let fileName = null;

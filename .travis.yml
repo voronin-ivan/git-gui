@@ -8,7 +8,6 @@ node_js:
 
 script:
 - npm run lint
-- npm run test:mocha
 - npm run build
 
 notifications:

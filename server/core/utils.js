@@ -16,11 +16,11 @@ const runExec = async (command) => {
     return stdout;
 };
 
-const inlineString = string => string.toString().trim().split('\n');
+const stringToArr = string => string.toString().trim().split('\n');
 const getHash = string => string.split('\t')[0].slice(0, 6);
 
 module.exports = {
     runExec,
-    inlineString,
+    stringToArr,
     getHash,
 };

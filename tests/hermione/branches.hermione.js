@@ -5,18 +5,18 @@ describe('Список веток', () => {
         return this.browser
             .url('/')
             .getText('.title')
-            .then(text => {
-                assert.equal(text, 'Branches');
-            });
+                .then(text => {
+                    assert.equal(text, 'Branches');
+                });
     });
 
     it('Проверить наличие веток', function() {
         return this.browser
             .url('/')
             .isExisting('.list .list__item')
-            .then(e => {
-                assert.equal(e, true);
-            });
+                .then(e => {
+                    assert.equal(e, true);
+                });
     });
 
     it('Проверить возможность выбора ветки', function() {
@@ -24,8 +24,8 @@ describe('Список веток', () => {
             .url('/')
             .click('.list__item > a')
             .getText('.subtitle')
-            .then(text => {
-                assert.deepEqual(text, ['commits', 'files']);
-            });
+                .then(text => {
+                    assert.deepEqual(text, ['commits', 'files']);
+                });
     });
 });

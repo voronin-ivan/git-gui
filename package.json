@@ -5,7 +5,6 @@
     "lint": "eslint \"**/*.js\"",
     "test:mocha": "nyc mocha tests/unit",
     "test:hermione": "hermione",
-    "test": "npm run test:mocha && npm run test:hermione",
     "clone": "git clone --mirror https://github.com/voronin-ivan/test.git repo",
     "build": "webpack",
     "dev": "webpack --watch | nodemon index.js",

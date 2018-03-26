@@ -19,9 +19,9 @@ describe('Страница ветки', () => {
         return this.browser
             .click('.breadcrumbs__link:first-of-type')
             .getText('.title')
-            .then(text => {
-                assert.equal(text, 'Branches');
-            });
+                .then(text => {
+                    assert.equal(text, 'Branches');
+                });
     });
 
     it('Переход к коммиту', async function() {
