@@ -41,8 +41,8 @@ const getFiles = async (param, exec = runExec) => {
 const getFileContent = async hash => await runExec(`git show ${hash}`);
 const getCommitName = async hash => await runExec(`git log -1 --pretty=format:%s ${hash}`);
 
-const getBreadCrumbs = async (param, hash) => {
-    const data = await runExec(`git ls-tree -t -r ${param}`);
+const getBreadCrumbs = async (param, hash, exec = runExec) => {
+    const data = await exec(`git ls-tree -t -r ${param}`);
     const files = stringToArr(data);
     const breadCrubms = [];
 

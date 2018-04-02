@@ -52,14 +52,12 @@ describe('Функция getBreadCrumbs', () => {
     it('Должна возвращать путь (список с именами и хэшами) до выбранного файла/папки', async () => {
         const exec = (cmd) => {
             if (cmd === 'git ls-tree -t -r master') {
-                return `100644 blob 00bcb6e3738c7392875d6c3e65c22d569eaff069\tREADME.md
-                        040000 tree b9deb05704bdaa25dac50c6dbedebbf8dfd6029b\timg
-                        100644 blob f74c51327ab46aa798d2c44e9c85baefa717d622\timg/fire.png`
+                return `100644 blob 00bcb6e3738c7392875d6c3e65c22d569eaff069\tREADME.md\n040000 tree b9deb05704bdaa25dac50c6dbedebbf8dfd6029b\timg\n100644 blob f74c51327ab46aa798d2c44e9c85baefa717d622\timg/fire.png`
             }
         };
         const actual = await getBreadCrumbs('master', 'f74c51', exec);
         const expected = [
-            { name: 'img', hash: 'd2a34d' },
+            { name: 'img', hash: 'b9deb0' },
             { name: 'fire.png', hash: 'f74c51' }
         ];
 

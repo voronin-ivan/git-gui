@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "lint": "eslint \"**/*.js\"",
-    "mocha": "nyc report --reporter=html --report-dir=\"./coverage/mocha\" mocha tests/unit",
+    "mocha": "nyc mocha tests/unit && nyc report --reporter=html --report-dir=\"./coverage/mocha\"",
     "hermione": "hermione",
     "selenium": "selenium-standalone install && selenium-standalone start",
     "test": "npm run mocha && npm run hermione",
