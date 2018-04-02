@@ -3,9 +3,9 @@ const { runExec, stringToArr, getHash } = require('../../server/core/utils');
 
 describe('Функция runExec', () => {
     it('Должна выполнять консольные команды', async () => {
-        const nodeVersion = await runExec('node -v');
+        const result = await runExec('echo it works');
 
-        expect(nodeVersion).to.be.a('string');
+        expect(result).to.equal('it works\n');
     });
 });
 

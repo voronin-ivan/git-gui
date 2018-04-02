@@ -1,16 +1,14 @@
 const { runExec, stringToArr, getHash } = require('./utils');
 
-const getBranches = async () => {
-    const data = await runExec('git branch');
-    console.log(data);
+const getBranches = async (exec = runExec) => {
+    const data = await exec('git branch');
     const branches = stringToArr(data);
-    console.log(branches);
 
     return branches.map(branch => branch.replace('* ', '').trim());
 };
 
-const getCommits = async (branch) => {
-    const data = await runExec(`git log --pretty=format:"%h|%ad|%an|%s" --date=short ${branch}`);
+const getCommits = async (branch, exec = runExec) => {
+    const data = await exec(`git log --pretty=format:"%h|%ad|%an|%s" --date=short ${branch}`);
     const commits = stringToArr(data);
 
     return commits.map((commit) => {
@@ -25,8 +23,8 @@ const getCommits = async (branch) => {
     });
 };
 
-const getFiles = async (param) => {
-    const data = await runExec(`git ls-tree ${param}`);
+const getFiles = async (param, exec = runExec) => {
+    const data = await exec(`git ls-tree ${param}`);
     const files = stringToArr(data);
 
     return files.map((file) => {

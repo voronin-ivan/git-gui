@@ -1,6 +1,6 @@
 node_modules
 dist
 repo
+coverage
 npm-debug.log
-hermione-html-report
 .nyc_output

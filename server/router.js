@@ -6,7 +6,7 @@ const {
     getFiles,
     getFileContent,
     getBreadCrumbs,
-} = require('./core/commands');
+} = require('./core/git');
 
 const router = new Router();
 
