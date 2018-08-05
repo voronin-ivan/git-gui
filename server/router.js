@@ -44,8 +44,7 @@ router.get('/:branch', async (req, res) => {
 
 router.get('/:branch/:commit', async (req, res) => {
     const { commit, branch } = req.params;
-    const file = req.query.file;
-    const path = req.query.path;
+    const { file, path } = req.query;
 
     if (file) {
         return res.render('preview', {

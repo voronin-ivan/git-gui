@@ -3,7 +3,10 @@ block content
     header
         h1.title Branches
     main
-        ul.list
-            for branch in branches
-                li.list__item
-                    a(href=`/${branch}`) #{branch}
+        if (branches[0])
+            ul.list
+                for branch in branches
+                    li.list__item
+                        a(href=`/${branch}`) #{branch}
+        else
+            h2 Repository is empty
