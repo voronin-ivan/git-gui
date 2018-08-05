@@ -7,7 +7,7 @@
     "hermione": "hermione",
     "selenium": "selenium-standalone install && selenium-standalone start",
     "test": "npm run mocha && npm run hermione",
-    "clone": "rm -rf repo && git clone --mirror https://github.com/voronin-ivan/blabla.git repo",
+    "clone": "rm -rf repo && git clone --mirror https://github.com/voronin-ivan/test.git repo",
     "build": "webpack",
     "dev": "webpack --watch | nodemon index.js",
     "start": "NODE_ENV=production npm run build && node index.js"

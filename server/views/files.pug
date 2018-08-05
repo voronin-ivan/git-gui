@@ -1,4 +1,6 @@
 extends layout
+block head
+    title=`Files in ${branch}`
 block content
     header
         h1.title #{(commit) ? commit.name : branch}
