@@ -1,16 +1,18 @@
 {
   "name": "shri-4-nodejs",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "scripts": {
     "lint": "eslint \"**/*.js\"",
     "mocha": "nyc mocha tests/unit && nyc report --reporter=html --report-dir=\"./coverage/mocha\"",
     "hermione": "hermione",
-    "selenium": "selenium-standalone install && selenium-standalone start",
+    "selenium": "selenium-standalone start",
+    "selenium-install": "selenium-standalone install",
     "test": "npm run mocha && npm run hermione",
     "clone": "rm -rf repo && git clone --mirror https://github.com/voronin-ivan/test.git repo",
     "build": "webpack",
     "dev": "webpack --watch | nodemon index.js",
-    "start": "NODE_ENV=production npm run build && node index.js"
+    "start": "NODE_ENV=production npm run build && node index.js",
+    "postinstall": "npm run clone && npm run selenium-install"
   },
   "repository": {
     "type": "git",

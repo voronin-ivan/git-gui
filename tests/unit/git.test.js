@@ -1,5 +1,10 @@
 const { expect } = require('chai');
-const { getBranches, getCommits, getFiles, getBreadCrumbs } = require('../../server/core/git');
+const {
+    getBranches,
+    getCommits,
+    getFiles,
+    getBreadCrumbs
+} = require('../../server/core/git');
 
 describe('Функция getBranches', () => {
     it('Должна возвращать список всех веток в репозитории', async () => {

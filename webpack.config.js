@@ -21,7 +21,7 @@ if (isProduction) {
 }
 
 module.exports = {
-    entry: './src/js/main.js',
+    entry: './src/index.js',
     output: {
         filename: 'js/bundle.js',
         path: path.resolve(__dirname, 'dist'),

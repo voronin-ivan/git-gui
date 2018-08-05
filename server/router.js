@@ -17,7 +17,9 @@ router.get('/', async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-        return res.status(404).render('404');
+        return error.code === 'ENOENT' ?
+            res.status(500).render('500') :
+            res.status(404).render('404');
     }
 });
 
