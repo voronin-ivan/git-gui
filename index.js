@@ -11,6 +11,7 @@ app.set('views', path.join(__dirname, 'server/views'));
 
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/', router);
+app.use('*', (req, res) => res.status(404).render('404'));
 
 app.listen(PORT, HOSTNAME, () => {
     console.log(`Express app listening on ${HOSTNAME}:${PORT}`);

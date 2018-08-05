@@ -7,11 +7,7 @@ const repoPath = path.join(__dirname, '../../repo');
 const options = { cwd: repoPath };
 
 const runExec = async (command) => {
-    const { stdout, stderr } = await exec(command, options);
-
-    if (stderr) {
-        console.error(stderr);
-    }
+    const { stdout } = await exec(command, options);
 
     return stdout;
 };
