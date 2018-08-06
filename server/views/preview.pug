@@ -15,4 +15,6 @@ block content
             for breadCrumb in breadCrumbs
                 span.breadcrumbs__arrow →
                 a.breadcrumbs__link(href=`/${branch}/${commit ? commit.hash + '/' : ''}?path=${breadCrumb.hash}`) #{breadCrumb.name}
-        div.content #{fileContent}
+        div.content
+            pre
+                code #{fileContent}
