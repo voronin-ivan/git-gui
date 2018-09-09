@@ -16,5 +16,8 @@ block content
                 span.breadcrumbs__arrow →
                 a.breadcrumbs__link(href=`/${branch}/${commit ? commit.hash + '/' : ''}?path=${breadCrumb.hash}`) #{breadCrumb.name}
         div.content
-            pre
-                code #{fileContent}
+            if file.type === 'image'
+                h2 Images are not supported for view yet
+            else
+                pre
+                    code #{file.content}

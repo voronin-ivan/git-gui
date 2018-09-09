@@ -8,12 +8,13 @@
     "selenium": "selenium-standalone start",
     "selenium-install": "selenium-standalone install",
     "test": "npm run mocha && npm run hermione",
-    "clone": "rm -rf repo && git clone --mirror https://github.com/voronin-ivan/test.git repo",
+    "clone": "rm -rf repo && git clone --mirror $npm_package_displayRepo repo",
     "build": "webpack",
     "dev": "webpack --watch | nodemon index.js",
     "start": "NODE_ENV=production npm run build && node index.js",
     "postinstall": "npm run clone && npm run selenium-install"
   },
+  "displayRepo": "https://github.com/voronin-ivan/test.git",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/voronin-ivan/shri-4-nodejs.git"

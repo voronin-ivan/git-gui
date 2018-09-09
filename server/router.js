@@ -33,7 +33,7 @@ router.get('/:branch', async (req, res) => {
             return res.render('preview', {
                 branch,
                 breadCrumbs: await getBreadCrumbs(branch, file),
-                fileContent: await getFileContent(file),
+                file: await getFileContent(file),
             });
         }
 
@@ -65,7 +65,7 @@ router.get('/:branch/:commit', async (req, res) => {
             return res.render('preview', {
                 branch,
                 breadCrumbs: await getBreadCrumbs(branch, file),
-                fileContent: await getFileContent(file),
+                file: await getFileContent(file),
             });
         }
 
