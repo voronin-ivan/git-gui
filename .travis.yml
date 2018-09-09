@@ -25,7 +25,7 @@ jobs:
       if: tag IS blank
       deploy:
         <<: *deploy
-        app: shri-4-nodejs-stage
+        app: git-gui-stage
         on:
           all_branches: true
 
@@ -33,7 +33,7 @@ jobs:
       if: tag IS present
       deploy:
         <<: *deploy
-        app: shri-4-nodejs
+        app: git-gui
         on:
           tags: true
           all_branches: true
