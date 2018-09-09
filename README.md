@@ -1,58 +1,56 @@
-# shri-4-nodejs
+# git-gui
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/bfd0b21bc9adc41261ff/maintainability)](https://codeclimate.com/github/voronin-ivan/shri-4-nodejs/maintainability)
-[![Build Status](https://travis-ci.org/voronin-ivan/shri-4-nodejs.svg?branch=master)](https://travis-ci.org/voronin-ivan/shri-4-nodejs)
+[![Maintainability](https://api.codeclimate.com/v1/badges/1eab2756148786296270/maintainability)](https://codeclimate.com/github/voronin-ivan/git-gui/maintainability)
+[![Build Status](https://travis-ci.org/voronin-ivan/git-gui.svg?branch=master)](https://travis-ci.org/voronin-ivan/git-gui)
 
-Node.js + express  
-Приложение для визуализации git-репозитория.
+## GUI for your repositories
+### [Demo](https://git-gui.herokuapp.com)
+Node.js app for display git branches, commits and files.  
+Supported all text-formats like `.html`, `.js`, `.md` and etc (with highlighting code syntax).  
+Just change value of `displayRepo` in package.json and let`s hack!  
 
-### Установка
+### Install
 ```sh
 npm install
-npm run clone
 ```
 
-### Запуск (development)
+### Development
 ```sh
 npm run dev
 ```
 
-### [Demo](https://shri-4-nodejs.herokuapp.com/)
-
-## Функционал
-Приложение представляет собой веб-интерфейс для локального git-репозитория.  
-Я попробовал три пути сохранения локального репозитория внутри репозитория приложения:
-- git submodule
-- сохранение локального репо в архив и дальнейшее его разархивирование внутри docker-контейнера
-- удалённый git-репозиторий, который нужно склонировать для работы
-
-Остановился на последнем варианте, т.к. можно удобно заменить репо в скрипте clone (package.json).
-
-Использовал pug для шаблонизации.  
-Для выполнения команд юзаю exec с применением util.promisify, что позволило избавиться от вложенности промисов на странице отображения коммитов и файлов для выбранной ветки, да и выглядит локоничнее. Spawn не подошёл, т.к., видимо, "не закрывались" потоки, что приводило к разному выводу, например, коммитов, при перезагрузке страницы.
-## Инфраструктура
-Для сборки клиентской части используется webpack, при сборке production-кода весь код минифицируется.
-
-ESLint анализирует JavaScript-код на основе набора определенных правил (я использовал конфиг airbnb с небольшой надстройкой).  
-После push (вне зависимости от ветки) начинается проверка в [travis](https://travis-ci.org/), а именно прогон линтера, тестов (in progress) и сборка prod-версии проекта с помощью webpack. Деплой приложения производится только при условии успешного прохождения всех проверок.
-
-Приложение развёрнуто на [heroku](https://heroku.com/) с помощью Docker. Существует несколько стендов: [stage](https://shri-4-nodejs-stage.herokuapp.com/) используется для разработки, там находится актуальная версия master. [Production](https://shri-4-nodejs.herokuapp.com/) - рабочая версия приложения, куда задеплоить можно несколькими способами:
-- Непосредственно через интерфейс heroku (promote to production)
-- Через тегирование в git, тогда деплой автоматически произойдет после push
-
-Помимо этого создаются отдельные стенды на каждый pr, что позволяет удобно тестировать приложение перед мерджем в master.
-
-## Тестирование
-В приложении присутствуют интеграционные (Selenuim + hermione) и модульные тесты (Mocha + Chai). После прохождения тестов формируются отчёты в папке coverage.
-
+### Build
 ```sh
-npm start (или npm run dev)
+npm run build
 ```
 
+## Testing
+### Mocha
 ```sh
+npm run mocha
+```
+### Hermione
+```sh
+npm start
 npm run selenium
+npm run hermione
 ```
 
+Update expected screens
 ```sh
-npm run test
+npm run hermione-update
 ```
+
+All reports will be available after run in dir `coverage`.
+
+## CI/CD
+After push in remote branch will start checks on [travis](https://travis-ci.org/) (linters, tests, build). After the successful completion of checks and creating pr, changes will be deployed on testing-stand on [heroku](https://heroku.com/) with Docker.
+
+### Envs
+- [stage](https://git-gui-stage.herokuapp.com) (actual master)
+- [production](https://git-gui.herokuapp.com)
+
+___
+
+
+Made in [Yandex Development School](https://academy.yandex.ru/events/frontend/shri_msk-2018/) with ♥
