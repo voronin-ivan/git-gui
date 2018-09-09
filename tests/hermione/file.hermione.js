@@ -35,3 +35,13 @@ describe('Страница файла bundle.js', () => {
                 });
     });
 });
+
+describe('Страница файла index.html', () => {
+    it('Проверить отображение контента файла', function() {
+        return this.browser
+            .url('/')
+            .click('.list__item:nth-child(2) > a')
+            .click('.files .list__item:last-of-type > a')
+            .assertView('plain', 'body')
+    });
+});

@@ -38,7 +38,22 @@ const getFiles = async (param, exec = runExec) => {
     });
 };
 
-const getFileContent = async hash => await runExec(`git show ${hash}`);
+const getFileContent = async (hash, exec = runExec) => {
+    const fileName = await exec(`git rev-list --objects --all | grep ${hash}`);
+    const fileExt = fileName.split(' ')[1].split('.').reverse()[0].trim();
+    const content = await exec(`git show ${hash}`);
+    const mediaExt = new Set(['jpeg', 'jpg', 'png', 'gif', 'svg']);
+
+    if (mediaExt.has(fileExt)) {
+        return { type: 'image' };
+    }
+
+    return {
+        type: 'simple',
+        content,
+    };
+};
+
 const getCommitName = async hash => await runExec(`git log -1 --pretty=format:%s ${hash}`);
 
 const getBreadCrumbs = async (param, hash, exec = runExec) => {

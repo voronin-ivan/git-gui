@@ -3,7 +3,8 @@ const {
     getBranches,
     getCommits,
     getFiles,
-    getBreadCrumbs
+    getBreadCrumbs,
+    getFileContent
 } = require('../../server/core/git');
 
 describe('Функция getBranches', () => {
@@ -65,6 +66,40 @@ describe('Функция getBreadCrumbs', () => {
             { name: 'img', hash: 'b9deb0' },
             { name: 'fire.png', hash: 'f74c51' }
         ];
+
+        expect(actual).to.deep.equal(expected);
+    });
+});
+
+describe('Функция getFileContent', () => {
+    it('Должна вернуть тип файла "simple" и содержимое плоского файла', async () => {
+        const fileHash = '94aca0'; // file main.js from branch 'epic-branch'
+        const content = 'console.log(\'epic\');';
+        const exec = (cmd) => {
+            if (cmd === `git rev-list --objects --all | grep ${fileHash}`) {
+                return `${fileHash} main.js`;
+            }
+
+            if (cmd === `git show ${fileHash}`) return content;
+        };
+        const actual = await getFileContent(fileHash, exec);
+        const expected = {
+            type: 'simple',
+            content
+        };
+
+        expect(actual).to.deep.equal(expected);
+    });
+
+    it('Должна вернуть тип файла "image", если у файла расширение .png', async () => {
+        const fileHash = 'b62cf2'; // file door.png from branch 'task-image'
+        const exec = (cmd) => {
+            if (cmd === `git rev-list --objects --all | grep ${fileHash}`) {
+                return `${fileHash} door.png`;
+            }
+        };
+        const actual = await getFileContent(fileHash, exec);
+        const expected = { type: 'image' };
 
         expect(actual).to.deep.equal(expected);
     });

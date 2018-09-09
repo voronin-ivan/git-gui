@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
     baseUrl: 'http://localhost:3000',
     gridUrl: 'http://0.0.0.0:4444/wd/hub',
@@ -23,4 +25,7 @@ module.exports = {
             path: 'coverage/hermione',
         },
     },
+    screenshotsDir: test => path.join(
+        path.dirname(test.file), 'screens', test.id(), test.browserId
+    )
 };
